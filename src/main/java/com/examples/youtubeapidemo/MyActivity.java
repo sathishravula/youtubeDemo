@@ -1,7 +1,11 @@
 package com.examples.youtubeapidemo;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -9,10 +13,13 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.truiton.youtubeapi.R;
-public class MyActivity extends YouTubeBaseActivity implements
-        YouTubePlayer.OnInitializedListener {
 
-    private YouTubePlayer YPlayer;
+import java.util.ArrayList;
+
+public class MyActivity extends YouTubeBaseActivity implements
+        YouTubePlayer.OnInitializedListener,View.OnClickListener {
+    public Button more;
+     YouTubePlayer YPlayer;
     private static final String YoutubeDeveloperKey = "AIzaSyDwttW24EyaqUS8BQjhNxHq7I110WlCaLY";
     private static final int RECOVERY_DIALOG_REQUEST = 1;
 
@@ -20,8 +27,11 @@ public class MyActivity extends YouTubeBaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        more= (Button) findViewById(R.id.button);
+        more.setVisibility(View.GONE);
+        more.setOnClickListener(this);
+
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
-        Log.d("test","oncreate");
         youTubeView.initialize(YoutubeDeveloperKey, this);
         Log.d("test","oncreate afterInitialze");
     }
@@ -76,9 +86,16 @@ public class MyActivity extends YouTubeBaseActivity implements
              * throughout the activity, and perform all the player actions like
              * play, pause and seeking to a position by code.
              */
-            YPlayer.cueVideo("2zNSgSzhBfM");
+
+            new RetriveData(this).execute("");
+          //  YPlayer.cueVideo("2zNSgSzhBfM");
+            more.setVisibility(YouTubePlayerView.VISIBLE);
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        new RetriveData(this).execute("");
+    }
 }
 
