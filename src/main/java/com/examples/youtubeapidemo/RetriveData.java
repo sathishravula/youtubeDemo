@@ -16,22 +16,23 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class RetriveData extends AsyncTask<String, Context, String>  {
-    private SharedPreferences storyPreferences;
+    private SharedPreferences tokenPreferences;
     ArrayList<String> list;
     public YouTubePlayer YPlayer;
         Context context;
     public RetriveData(MyActivity yPlayer)  {
        YPlayer=yPlayer.YPlayer;
                         context=yPlayer.getApplicationContext();
-        storyPreferences =context.getSharedPreferences("pageToken", Context.MODE_MULTI_PROCESS);
+        tokenPreferences =context.getSharedPreferences("pageToken", Context.MODE_MULTI_PROCESS);
     }
 
 
     @Override
     protected String doInBackground(String... params) {
-        String token=storyPreferences.getString("telugu".toLowerCase(), "");
-        list=Data.getVedioIds(params[0]);
-        SharedPreferences.Editor editor = storyPreferences.edit();
+        String token=tokenPreferences.getString("telugu".toLowerCase(), "");
+        Log.d("test"," token setting  "+token);
+        list=Data.getVedioIds(token);
+        SharedPreferences.Editor editor = tokenPreferences.edit();
         editor.putString("telugu".toLowerCase(), list.get(0));
         Log.d("test3"," token"+list.get(0));
         list.remove(0);

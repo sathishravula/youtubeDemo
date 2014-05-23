@@ -26,7 +26,7 @@ import java.util.List;
 public class Data {
 
     public static  void main(String[] args){
-        System.out.println(getVedioIds("").toString());
+        System.out.println(getVedioIds("CDwQAA").toString());
     }
 
     public static ArrayList<String> getVedioIds(String token){
@@ -53,8 +53,8 @@ public class Data {
             SearchListResponse searchResponse = search.execute();
            String nextPageTokenoken= searchResponse.getNextPageToken();
             list.add(nextPageTokenoken);
-
-            Log.d("test1"," token"+nextPageTokenoken);
+            System.out.println(" The next pagetoken:  "+nextPageTokenoken);
+            Log.d("test1"," token in response"+nextPageTokenoken);
             List<SearchResult> searchResultList = searchResponse.getItems();
             if (searchResultList != null) {
                 //   prettyPrint(searchResultList.iterator(), queryTerm);
@@ -75,17 +75,17 @@ public class Data {
         } catch (GoogleJsonResponseException e) {
             System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
                     + e.getDetails().getMessage());
-            Log.d("test1", e.getDetails().getMessage());
+//            Log.d("test1", e.getDetails().getMessage());
         } catch (IOException e) {
             System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
         } catch (Throwable t) {
-            Log.d("test1", t.toString());
-            Log.d("test1", t.getMessage());
-            Log.d("test1", t.getCause()+"");
+//            Log.d("test1", t.toString());
+//            Log.d("test1", t.getMessage());
+//            Log.d("test1", t.getCause()+"");
             t.printStackTrace();
         }
-        Log.d("test2"," token"+list.get(0));
-        Log.d("test1", list.toString());
+//        Log.d("test2"," token"+list.get(0));
+//        Log.d("test1", list.toString());
         return list;
     }
 }
